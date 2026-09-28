@@ -9,9 +9,63 @@
 <body>
     <div class="machine">
         <h1>SMARTBREW</h1>
+
+
         <div class="screen">
-            <p>Machine Ready</p>
+            <p id="status">Machine Ready</p>
+            <p id="selected-coffee">Selected Coffee: None</p>
+            <p id="selected-price">Price: ₹0</p>
+            <p id="queue-count">Orders in Queue: 0</p>
+            <p id="next-queue">Next in Queue: None</p>
         </div>
+
+
+        <div class="buttons">
+                <button onclick="selectCoffee('Espresso',40)">Espresso</button>
+                <button onclick="selectCoffee('Latte',60)">Latte</button>
+                <button onclick="selectCoffee('Cappuccino',70)">Cappuccino</button>
+                <button onclick="selectCoffee('Americano',50)">Americano</button>
+                <button onclick="selectCoffee('Mocha',80)">Mocha</button>
+        </div>
+
+
+        <div class="payment-section">
+            <button onclick="payNow()">Pay now</button>
+        </div>
+
+        <div class="queue-section">
+            <button onclick="addToQueue()">Add To Queue</button>
+            <button onclick="processNextOrder()">Process Next Order</button>
+        </div>
+    </div>
+    
+    <div id="inventory-panel" class="inventory-panel" style="display: none;">
+        
+        <h3>Ingredients</h3>
+        <p id="water-stock">Water: 1200ml</p>
+        <p id="milk-stock">Milk: 700ml</p>
+        <p id="coffee-stock">Coffee: 300g</p>
+
+        <h3>Sales History</h3>
+        <p id="sales-count">Total Sales: 0</p>
+        <p id="total-revenue">Total Revenue: ₹0</p>
+        <p id="last-sale">Last Sale: None</p>
+
+        <h3>Search Sales</h3>
+        <input type="text" id="search-coffee" placeholder="Enter coffee name">
+        <button id="search-btn" onclick="searchSales()">Search Sales</button>
+        <p id="search-result">Search Result: None</p>
+
+        <h3>Popularity</h3>
+        <button onclick="showMostPopularCoffee()">Show Most Popular Coffee</button>
+        <p id="popular-result">Most Popular: None</p>
+        
+    </div>
+
+    <div class="admin-section">
+        <button id="toggle-admin-btn" onclick="toggleAdminPanel()">Show Admin View</button>
+        <button onclick="refillInventory()">Admin Refill</button>
+        <button onclick="undoLastAction()">Undo Last Action</button>
     </div>
 
     <script src="script.js" ></script>

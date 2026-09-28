@@ -1,26 +1,153 @@
-body{
+body {
     margin: 0;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #e8e0d6;
-    font-family: Arial,sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 .machine {
-  width: 320px;
-  padding: 20px;
-  border-radius: 16px;
-  background: #222;
-  color: white;
-  text-align: center;
+    width: 320px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #222;
+    color: white;
+    text-align: center;
 }
 
 .screen {
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 10px;
-  background: #f5efe6;
-  color: #2b2b2b;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background: #f5efe6;
+    color: #2b2b2b;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #6f4e37;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #8a6246;
+}
+
+.payment-section {
+    margin-top: 15px;
+}
+
+.payment-section button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #2e8b57;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.payment-section button:hover {
+    background: #256f46;
+}
+
+.admin-section {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-section button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #444;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.admin-section button:hover {
+    background: #666;
+}
+
+.inventory-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 220px;
+    padding: 15px;
+    border-radius: 12px;
+    background: #f5efe6;
+    color: #222;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.inventory-panel h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.queue-section {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.queue-section button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #8b5a2b;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.queue-section button:hover {
+    background: #6f451f;
+}
+
+.inventory-panel input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.inventory-panel button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: #5a3d2b;
+    color: white;
+    cursor: pointer;
+}
+
+.inventory-panel button:hover {
+    background: #40291d;
 }
