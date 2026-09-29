@@ -1,153 +1,1329 @@
-body {
+/* ==========================================================================
+   SMARTBREW COMMERCIAL TOUCHSCREEN ACVM - CORE DESIGN SYSTEM & STYLES
+   ========================================================================== */
+
+:root {
+    /* Machine Chassis & Body Palette */
+    --chassis-primary: #1f2227;
+    --chassis-secondary: #14161a;
+    --chassis-dark: #0b0c0e;
+    --chassis-border: #32363e;
+    --chassis-bevel-light: rgba(255, 255, 255, 0.08);
+    --chassis-shadow: rgba(0, 0, 0, 0.65);
+    
+    /* Screen Bezel & Recessed Surface */
+    --screen-bezel-outer: #282b31;
+    --screen-bezel-inner: #0d0f12;
+    --screen-glass-bg: #090a0d;
+    --screen-card-bg: #14171d;
+    --screen-card-hover: #1b2029;
+    --screen-card-border: rgba(255, 255, 255, 0.07);
+    
+    /* Commercial Accent & Status Lighting */
+    --accent-gold: #cba358;
+    --accent-gold-dark: #98712a;
+    --accent-emerald: #10b981;
+    --accent-emerald-glow: rgba(16, 185, 129, 0.35);
+    --accent-cyan: #38bdf8;
+    --accent-amber: #f59e0b;
+    --accent-red: #ef4444;
+    
+    /* Neutral Tone Highlights */
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --text-dim: #475569;
+    
+    /* Physical Dispenser Tones */
+    --bay-dark: #07080a;
+    --chrome-bright: #e2e8f0;
+    --chrome-mid: #94a3b8;
+    --chrome-dark: #334155;
+    
+    /* Typography */
+    --font-ui: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
+}
+
+html, body {
+    min-height: 100%;
+    width: 100%;
+    font-family: var(--font-ui);
+    background: radial-gradient(circle at 50% 20%, #2e343d 0%, #17191d 60%, #0d0e11 100%);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   APP STAGE & CENTERING
+   ========================================================================== */
+
+.app-stage {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #e8e0d6;
-    font-family: Arial, sans-serif;
+    padding: 20px 16px;
+    position: relative;
 }
 
-.machine {
-    width: 320px;
-    padding: 20px;
-    border-radius: 16px;
-    background: #222;
-    color: white;
-    text-align: center;
-}
+/* ==========================================================================
+   MACHINE SILHOUETTE & INDUSTRIAL CABINET CHASSIS
+   ========================================================================== */
 
-.screen {
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 10px;
-    background: #f5efe6;
-    color: #2b2b2b;
-}
-
-.buttons {
+.machine-shell {
+    width: min(100%, 450px);
+    background: linear-gradient(180deg, #2b2e36 0%, #1e2026 35%, #131518 70%, #0d0e11 100%);
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.8),
+        0 15px 35px -5px rgba(0, 0, 0, 0.7),
+        0 30px 60px -12px rgba(0, 0, 0, 0.85);
+    padding: 16px 16px 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 12px;
+    position: relative;
+    user-select: none;
+    transition: box-shadow 0.3s ease;
 }
 
-button {
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background: #6f4e37;
-    color: white;
-    font-size: 16px;
+/* Busy & Ready states on Machine Body */
+.machine-shell.machine--busy {
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.8),
+        0 0 25px rgba(245, 158, 11, 0.15),
+        0 30px 60px -12px rgba(0, 0, 0, 0.85);
+}
+
+.machine-shell.machine--ready {
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.8),
+        0 0 30px rgba(16, 185, 129, 0.25),
+        0 30px 60px -12px rgba(0, 0, 0, 0.85);
+}
+
+/* Machine Inner Edge Accents */
+.machine-shell::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.035);
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   MACHINE TOP FASCIA & BRAND BADGING
+   ========================================================================== */
+
+.machine-top {
+    width: 100%;
+    padding: 2px 4px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.status-light {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 10px var(--accent-emerald-glow), 0 0 4px #10b981;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    animation: statusPulse 3s infinite ease-in-out;
+}
+
+@keyframes statusPulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.08); box-shadow: 0 0 14px rgba(16, 185, 129, 0.7); }
+}
+
+.machine--busy .status-light {
+    background: #f59e0b;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.8), 0 0 4px #f59e0b;
+    animation: busyBlink 0.8s infinite ease-in-out;
+}
+
+@keyframes busyBlink {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+.brand-title-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+}
+
+.brand-title {
+    font-size: 1.22rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #f1f5f9;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    background: linear-gradient(180deg, #ffffff 30%, #cbd5e1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.machine-series {
+    font-family: var(--font-mono);
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+}
+
+.service-dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #475569 0%, #1e293b 80%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     cursor: pointer;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25), 0 2px 4px rgba(0, 0, 0, 0.5);
+    transition: transform 0.15s ease, filter 0.2s ease;
 }
 
-button:hover {
-    background: #8a6246;
+.service-dot:hover {
+    filter: brightness(1.3);
+    transform: scale(1.1);
+}
+
+.service-dot:active {
+    transform: scale(0.92);
+}
+
+/* ==========================================================================
+   RECESSED TOUCHSCREEN AREA & INDUSTRIAL GLASS BEZEL
+   ========================================================================== */
+
+.machine-screen-area {
+    width: 100%;
+}
+
+.screen-bezel {
+    background: linear-gradient(145deg, #121417 0%, #1b1e24 50%, #0d0e11 100%);
+    border-radius: 18px;
+    padding: 6px;
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.9),
+        inset 0 -1px 2px rgba(255, 255, 255, 0.08),
+        0 4px 12px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.touchscreen-panel {
+    background: radial-gradient(circle at 50% 0%, #161b24 0%, #0a0c10 85%);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 9px 9px 7px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
+}
+
+.touchscreen-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.25) 50%, transparent 100%);
+    pointer-events: none;
+}
+
+/* Touchscreen Upper Header Bar */
+.screen-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1px 4px 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.screen-topbar-left,
+.screen-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.screen-live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    box-shadow: 0 0 6px var(--accent-cyan);
+}
+
+.screen-brand {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+
+.screen-temp-badge {
+    font-family: var(--font-mono);
+    font-size: 0.56rem;
+    font-weight: 700;
+    color: #fdba74;
+    background: rgba(251, 146, 60, 0.1);
+    padding: 2px 5px;
+    border-radius: 4px;
+    border: 1px solid rgba(251, 146, 60, 0.2);
+}
+
+.screen-mode {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(74, 222, 128, 0.25);
+    transition: all 0.25s ease;
+}
+
+.screen-mode.mode-paying {
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.15);
+    border-color: rgba(56, 189, 248, 0.35);
+}
+
+.screen-mode.mode-brewing {
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.15);
+    border-color: rgba(251, 191, 36, 0.4);
+    animation: modePulse 1s infinite alternate;
+}
+
+.screen-mode.mode-ready {
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.2);
+    border-color: rgba(74, 222, 128, 0.5);
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.3);
+}
+
+.screen-mode.mode-error {
+    color: #f87171;
+    background: rgba(248, 113, 113, 0.15);
+    border-color: rgba(248, 113, 113, 0.4);
+}
+
+@keyframes modePulse {
+    from { opacity: 0.7; }
+    to { opacity: 1; transform: scale(1.02); }
+}
+
+/* ==========================================================================
+   TOUCHSCREEN STATUS & METRICS HUD
+   ========================================================================== */
+
+.screen-main {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.screen-status-block {
+    background: linear-gradient(180deg, rgba(26, 31, 40, 0.6) 0%, rgba(16, 20, 27, 0.8) 100%);
+    border-radius: 10px;
+    padding: 7px 9px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hud-top-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.screen-label {
+    font-family: var(--font-mono);
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.hud-idle-indicator {
+    font-family: var(--font-mono);
+    font-size: 0.54rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: var(--accent-emerald);
+}
+
+#status {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: -0.2px;
+    margin-bottom: 7px;
+    min-height: 1.25rem;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease;
+}
+
+/* Status message dynamic color overrides via script.js */
+#status[style*="color: black"],
+#status[style*="color: rgb(0, 0, 0)"] {
+    color: #f1f5f9 !important;
+}
+#status[style*="color: green"],
+#status[style*="color: rgb(0, 128, 0)"] {
+    color: #4ade80 !important;
+}
+#status[style*="color: orange"],
+#status[style*="color: rgb(255, 165, 0)"] {
+    color: #fbbf24 !important;
+}
+#status[style*="color: red"],
+#status[style*="color: rgb(255, 0, 0)"] {
+    color: #f87171 !important;
+}
+#status[style*="color: brown"],
+#status[style*="color: rgb(165, 42, 42)"] {
+    color: #fcd34d !important;
+}
+#status[style*="color: purple"],
+#status[style*="color: rgb(128, 0, 128)"] {
+    color: #c084fc !important;
+}
+#status[style*="color: blue"],
+#status[style*="color: rgb(0, 0, 255)"] {
+    color: #60a5fa !important;
+}
+
+/* Compact HUD Telemetry Pills */
+.screen-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}
+
+.info-pill {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+    padding: 3px 6px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+}
+
+.pill-label {
+    font-size: 0.50rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-dim);
+}
+
+.info-pill p {
+    font-size: 0.70rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.25;
+}
+
+#selected-coffee, #selected-price {
+    color: #f8fafc;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   TOUCHSCREEN DRINK CARDS GRID (COMPACT & MODERN)
+   ========================================================================== */
+
+.touchscreen-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+.drink-card {
+    background: linear-gradient(145deg, #1c212a 0%, #12151b 100%);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    padding: 6px 8px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease;
+    text-align: left;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.drink-card:hover:not(:disabled) {
+    background: linear-gradient(145deg, #242b36 0%, #171b22 100%);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.drink-card:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.drink-card:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    filter: grayscale(0.2);
+}
+
+.drink-icon-wrap {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.drink-icon {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.drink-details {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.drink-name {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    letter-spacing: -0.1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.drink-desc {
+    font-size: 0.56rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.drink-price {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    background: rgba(203, 163, 88, 0.12);
+    border: 1px solid rgba(203, 163, 88, 0.25);
+    padding: 2px 5px;
+    border-radius: 6px;
+}
+
+.wide-drink {
+    grid-column: 1 / -1;
+    background: linear-gradient(145deg, #212630 0%, #15181e 100%);
+}
+
+/* Selected State */
+.drink-card.selected {
+    background: linear-gradient(145deg, #302619 0%, #20180e 100%) !important;
+    border-color: var(--accent-gold) !important;
+    box-shadow:
+        0 0 14px rgba(203, 163, 88, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 0 8px rgba(203, 163, 88, 0.15) !important;
+}
+
+.drink-card.selected .drink-icon-wrap {
+    background: rgba(203, 163, 88, 0.2);
+    border-color: var(--accent-gold);
+}
+
+.drink-card.selected .drink-name {
+    color: #fef08a;
+}
+
+.drink-card.selected .drink-price {
+    background: var(--accent-gold);
+    color: #1a1205;
+    border-color: #fef08a;
+}
+
+/* Screen Footer Carousel Dots */
+.screen-footer-bar {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding-top: 1px;
+}
+
+.screen-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.screen-dot.active {
+    width: 14px;
+    border-radius: 999px;
+    background: var(--accent-cyan);
+    box-shadow: 0 0 6px var(--accent-cyan);
+}
+
+/* ==========================================================================
+   PAYMENT STRIP & PRIMARY ACTION
+   ========================================================================== */
+
+.payment-area {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.payment-strip {
+    background: linear-gradient(180deg, #181b22 0%, #0e1014 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 7px 9px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.tap-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: linear-gradient(145deg, #334155 0%, #1e293b 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.nfc-wave {
+    position: absolute;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    border-bottom: transparent;
+    border-left: transparent;
+    transform: rotate(45deg);
+}
+
+.wave-1 {
+    width: 8px;
+    height: 8px;
+    top: 8px;
+    left: 7px;
+}
+
+.wave-2 {
+    width: 14px;
+    height: 14px;
+    top: 5px;
+    left: 4px;
+}
+
+.payment-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.payment-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.payment-sub {
+    font-size: 0.53rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .payment-section {
-    margin-top: 15px;
+    display: flex;
 }
 
-.payment-section button {
+.pay-btn {
     width: 100%;
-    padding: 14px;
     border: none;
-    border-radius: 8px;
-    background: #2e8b57;
-    color: white;
-    font-size: 16px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    font-family: var(--font-ui);
+    font-size: 0.80rem;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 9px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 4px 14px rgba(5, 150, 105, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
+    transition: transform 0.12s ease, filter 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease;
 }
 
-.payment-section button:hover {
-    background: #256f46;
+.pay-btn:hover:not(:disabled) {
+    filter: brightness(1.1);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        0 6px 18px rgba(5, 150, 105, 0.55);
+    transform: translateY(-1px);
 }
 
-.admin-section {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+.pay-btn:active:not(:disabled) {
+    transform: translateY(1px);
+    filter: brightness(0.95);
+}
+
+.pay-btn:disabled {
+    background: #334155;
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: none;
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* ==========================================================================
+   DISPENSING CHAMBER & COMMERCIAL REALISM WITH CUP MAGAZINE
+   ========================================================================== */
+
+.dispense-area {
+    width: 100%;
+}
+
+.dispense-bay {
+    background: radial-gradient(circle at 50% 15%, #181b22 0%, #090a0d 65%, #050608 100%);
+    border-radius: 16px;
+    height: 155px;
+    padding: 10px 14px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    align-items: center;
+    justify-items: center;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+        inset 0 8px 16px rgba(0, 0, 0, 0.95),
+        inset 0 -4px 8px rgba(0, 0, 0, 0.8),
+        0 3px 8px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+/* Ambient Spotlight in Bay during idle vs brewing */
+.dispense-ambient-light {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 70px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 80%);
+    pointer-events: none;
+    transition: background 0.4s ease, opacity 0.4s ease;
+}
+
+.machine--brewing .dispense-ambient-light {
+    background: radial-gradient(ellipse at 50% 0%, rgba(251, 191, 36, 0.28) 0%, rgba(203, 163, 88, 0.12) 50%, transparent 85%);
+    opacity: 1;
+}
+
+.machine--ready .dispense-ambient-light {
+    background: radial-gradient(ellipse at 50% 0%, rgba(74, 222, 128, 0.32) 0%, transparent 80%);
+}
+
+/* Internal Mechanical Cup Magazine / Sleeve */
+.cup-dispenser-column {
+    position: absolute;
+    left: 14px;
+    top: 14px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    gap: 4px;
+    opacity: 0.75;
+    pointer-events: none;
 }
 
-.admin-section button {
+.cup-sleeve {
+    width: 22px;
+    height: 48px;
+    background: linear-gradient(180deg, #1e242d 0%, #111419 100%);
+    border-radius: 4px 4px 6px 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 3px;
+    gap: 3px;
+}
+
+.cup-sleeve-rim {
+    width: 16px;
+    height: 3px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+.cup-sleeve-tag {
+    font-family: var(--font-mono);
+    font-size: 0.42rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+}
+
+/* Mechanical Dual Nozzle Head */
+.nozzle-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.nozzle-mount {
+    width: 48px;
+    height: 7px;
+    background: linear-gradient(180deg, #475569 0%, #1e293b 100%);
+    border-radius: 3px 3px 0 0;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.nozzle {
+    width: 14px;
+    height: 15px;
+    background: linear-gradient(90deg, #64748b 0%, #cbd5e1 50%, #475569 100%);
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.nozzle-tip {
+    width: 6px;
+    height: 3px;
+    background: #0f172a;
+    border-radius: 0 0 2px 2px;
+}
+
+/* Coffee Liquid Stream Keyframes & Animations */
+.stream-line {
+    position: absolute;
+    top: 22px;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(180deg, #854d0e 0%, #582a0b 60%, #3f1a04 100%);
+    border-radius: 2px;
+    opacity: 0;
+    box-shadow: 0 0 6px rgba(133, 77, 14, 0.6);
+    pointer-events: none;
+    transform-origin: top center;
+}
+
+.stream--visible {
+    animation: streamFlow 2.4s ease-in-out forwards;
+}
+
+@keyframes streamFlow {
+    0% {
+        height: 0;
+        opacity: 0;
+        transform: scaleX(0.8);
+    }
+    10% {
+        height: 48px;
+        opacity: 0.95;
+        transform: scaleX(1);
+    }
+    85% {
+        height: 48px;
+        opacity: 0.95;
+        transform: scaleX(1.1);
+    }
+    100% {
+        height: 0;
+        opacity: 0;
+        transform: scaleX(0.5);
+    }
+}
+
+/* Dispenser Cup - Strictly shown on brew cycle */
+.cup-zone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background: #444;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
+    height: 100%;
+    position: relative;
 }
 
-.admin-section button:hover {
-    background: #666;
+.cup {
+    width: 58px;
+    height: 68px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(-24px) scale(0.9);
+    transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
 }
 
-.inventory-panel {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 220px;
-    padding: 15px;
-    border-radius: 12px;
-    background: #f5efe6;
-    color: #222;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+/* Cup Dropped / Dispensed Into Position */
+.cup.cup--active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
 }
 
-.inventory-panel h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
+.cup.cup--filled {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: cupReadyBounce 0.4s ease-out;
+}
+
+@keyframes cupReadyBounce {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-4px) scale(1.03); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+.cup-rim {
+    width: 54px;
+    height: 5px;
+    background: #ffffff;
+    border-radius: 999px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.cup-body {
+    width: 50px;
+    height: 64px;
+    background: linear-gradient(90deg, #e2e8f0 0%, #ffffff 40%, #cbd5e1 100%);
+    clip-path: polygon(4% 0%, 96% 0%, 82% 100%, 18% 100%);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+}
+
+/* Fill Liquid Reservoir Animation */
+.cup-coffee-fill {
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(180deg, #d4a373 0%, #78350f 35%, #451a03 100%);
+    transition: height 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 -2px 6px rgba(212, 163, 115, 0.6);
+}
+
+.cup--brewing .cup-coffee-fill {
+    height: 78%;
+}
+
+.cup--filled .cup-coffee-fill {
+    height: 82%;
+}
+
+/* Drip Tray & Metallic Grille */
+.drip-tray {
+    width: 82%;
+    height: 12px;
+    background: linear-gradient(180deg, #334155 0%, #0f172a 100%);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 4px rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
+}
+
+.drip-grid {
+    width: 100%;
+    height: 4px;
+    background: repeating-linear-gradient(
+        90deg,
+        #090d16 0px,
+        #090d16 4px,
+        #64748b 4px,
+        #64748b 6px
+    );
+    border-radius: 2px;
+}
+
+/* ==========================================================================
+   BOTTOM OPERATIONAL SECTION (SECONDARY QUEUE CONTROLS)
+   ========================================================================== */
+
+.machine-bottom {
+    width: 100%;
+    padding-top: 2px;
 }
 
 .queue-section {
-    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.btn-secondary {
+    background: linear-gradient(180deg, #2b303c 0%, #1e222b 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    color: #cbd5e1;
+    font-family: var(--font-ui);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 8px 6px;
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease, opacity 0.2s ease;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: linear-gradient(180deg, #373e4d 0%, #252a36 100%);
+    color: #f8fafc;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.btn-secondary:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==========================================================================
+   TECHNICIAN CONSOLE / INVENTORY PANEL (MODERN ONE-PAGE SLIDE DRAWER)
+   ========================================================================== */
+
+.admin-panel {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: 320px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    background: rgba(18, 21, 27, 0.96);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    z-index: 999;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
-.queue-section button {
-    width: 100%;
-    padding: 12px;
+.admin-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 8px;
+}
+
+.admin-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--accent-gold);
+    background: rgba(203, 163, 88, 0.12);
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(203, 163, 88, 0.25);
+}
+
+.admin-close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.admin-close-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-section-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.admin-section-card h3 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+}
+
+.stock-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.stock-item {
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 6px;
+    padding: 6px 4px;
+    text-align: center;
+}
+
+.stock-name {
+    display: block;
+    font-size: 0.55rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.stock-item p {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin-top: 2px;
+}
+
+.telemetry-grid p {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: #cbd5e1;
+    line-height: 1.5;
+}
+
+.search-input-row {
+    display: flex;
+    gap: 6px;
+}
+
+.search-input-row input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 6px 8px;
+    color: #ffffff;
+    font-size: 0.72rem;
+    outline: none;
+}
+
+.search-input-row input:focus {
+    border-color: var(--accent-cyan);
+}
+
+.search-input-row button,
+.btn-analytics {
+    background: #334155;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.search-input-row button:hover,
+.btn-analytics:hover {
+    background: #475569;
+}
+
+#search-result,
+#popular-result {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.admin-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.btn-refill {
+    background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%);
     border: none;
     border-radius: 8px;
-    background: #8b5a2b;
-    color: white;
-    font-size: 15px;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 9px;
     cursor: pointer;
 }
 
-.queue-section button:hover {
-    background: #6f451f;
-}
-
-.inventory-panel input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-}
-
-.inventory-panel button {
-    width: 100%;
-    padding: 10px;
+.btn-undo {
+    background: linear-gradient(180deg, #475569 0%, #334155 100%);
     border: none;
-    border-radius: 6px;
-    background: #5a3d2b;
-    color: white;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 9px;
     cursor: pointer;
 }
 
-.inventory-panel button:hover {
-    background: #40291d;
+.btn-refill:hover:not(:disabled),
+.btn-undo:hover:not(:disabled) {
+    filter: brightness(1.15);
+}
+
+.btn-refill:disabled,
+.btn-undo:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==========================================================================
+   RESPONSIVE POLISH & REDUCED MOTION SUPPORT
+   ========================================================================== */
+
+@media (max-width: 980px) {
+    .app-stage {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 16px 12px 32px;
+    }
+
+    .admin-panel {
+        position: static;
+        width: min(100%, 450px);
+        margin-top: 14px;
+        max-height: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .machine-shell {
+        width: 100%;
+        border-radius: 20px;
+        padding: 14px 12px 16px;
+        gap: 10px;
+    }
+
+    .touchscreen-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .drink-card {
+        padding: 8px 10px;
+    }
+
+    .wide-drink {
+        grid-column: auto;
+    }
+
+    .payment-area {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .dispense-bay {
+        height: 145px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .status-light,
+    .screen-mode,
+    .stream--visible,
+    .cup-coffee-fill,
+    .cup {
+        animation: none !important;
+        transition: none !important;
+    }
+    .stream--visible {
+        height: 48px !important;
+        opacity: 0.9 !important;
+    }
+    .cup--brewing .cup-coffee-fill,
+    .cup--filled .cup-coffee-fill {
+        height: 80% !important;
+    }
 }

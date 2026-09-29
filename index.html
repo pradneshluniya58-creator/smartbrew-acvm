@@ -1,73 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Brew ACVM</title>
+    <title>SmartBrew Commercial ACVM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="machine">
-        <h1>SMARTBREW</h1>
+    <main class="app-stage">
+        <!-- Physical Machine Silhouette -->
+        <section class="machine-shell machine" id="machine-chassis">
+            
+            <!-- Machine Top Bevel & Brand Fascia -->
+            <header class="machine-top">
+                <div class="brand-row">
+                    <div class="status-light" id="chassis-status-light" title="System Operational"></div>
+                    <div class="brand-title-wrap">
+                        <h1 class="brand-title">SMARTBREW</h1>
+                        <span class="machine-series">PRO TOUCH V300</span>
+                    </div>
+                    <button type="button" class="service-dot" id="toggle-admin-btn" onclick="toggleAdminPanel()"
+                        aria-label="Toggle admin view" title="Technician Access"></button>
+                </div>
+            </header>
 
+            <!-- Recessed Digital Touchscreen Display Section -->
+            <section class="machine-screen-area">
+                <div class="screen-bezel">
+                    <div class="screen touchscreen-panel">
+                        
+                        <!-- Touchscreen Upper Header Bar -->
+                        <div class="screen-topbar">
+                            <div class="screen-topbar-left">
+                                <span class="screen-live-dot"></span>
+                                <span class="screen-brand">SMARTBREW TOUCH OS</span>
+                            </div>
+                            <div class="screen-topbar-right">
+                                <span class="screen-temp-badge">92°C OPTIMAL</span>
+                                <span class="screen-mode" id="screen-system-mode">READY</span>
+                            </div>
+                        </div>
 
-        <div class="screen">
-            <p id="status">Machine Ready</p>
-            <p id="selected-coffee">Selected Coffee: None</p>
-            <p id="selected-price">Price: ₹0</p>
-            <p id="queue-count">Orders in Queue: 0</p>
-            <p id="next-queue">Next in Queue: None</p>
-        </div>
+                        <!-- Touchscreen Main Body Layout -->
+                        <div class="screen-main">
+                            
+                            <!-- Digital Dynamic Status & Telemetry HUD -->
+                            <div class="screen-status-block">
+                                <div class="hud-top-meta">
+                                    <span class="screen-label" id="screen-step-label">SELECT COFFEE</span>
+                                    <span class="hud-idle-indicator" id="hud-telemetry-indicator">STANDBY READY</span>
+                                </div>
+                                <p id="status">Machine Ready</p>
 
+                                <div class="screen-info">
+                                    <div class="info-pill info-pill-drink">
+                                        <span class="pill-label">Selected</span>
+                                        <p id="selected-coffee">Selected Coffee: None</p>
+                                    </div>
+                                    <div class="info-pill info-pill-price">
+                                        <span class="pill-label">Price</span>
+                                        <p id="selected-price">Price: ₹0</p>
+                                    </div>
+                                    <div class="info-pill info-pill-queue">
+                                        <span class="pill-label">Orders</span>
+                                        <p id="queue-count">Orders in Queue: 0</p>
+                                    </div>
+                                    <div class="info-pill info-pill-next">
+                                        <span class="pill-label">Up Next</span>
+                                        <p id="next-queue">Next in Queue: None</p>
+                                    </div>
+                                </div>
+                            </div>
 
-        <div class="buttons">
-                <button onclick="selectCoffee('Espresso',40)">Espresso</button>
-                <button onclick="selectCoffee('Latte',60)">Latte</button>
-                <button onclick="selectCoffee('Cappuccino',70)">Cappuccino</button>
-                <button onclick="selectCoffee('Americano',50)">Americano</button>
-                <button onclick="selectCoffee('Mocha',80)">Mocha</button>
-        </div>
+                            <!-- Interactive Drink Touchscreen Matrix -->
+                            <div class="buttons touchscreen-grid">
+                                <button type="button" class="drink-card" data-coffee="Espresso"
+                                    onclick="selectCoffee('Espresso',40)">
+                                    <div class="drink-icon-wrap">
+                                        <span class="drink-icon">☕</span>
+                                    </div>
+                                    <div class="drink-details">
+                                        <span class="drink-name">Espresso</span>
+                                        <span class="drink-desc">Rich &amp; Intense</span>
+                                    </div>
+                                    <span class="drink-price">₹40</span>
+                                </button>
 
+                                <button type="button" class="drink-card" data-coffee="Latte"
+                                    onclick="selectCoffee('Latte',60)">
+                                    <div class="drink-icon-wrap">
+                                        <span class="drink-icon">🥛</span>
+                                    </div>
+                                    <div class="drink-details">
+                                        <span class="drink-name">Latte</span>
+                                        <span class="drink-desc">Smooth &amp; Silky</span>
+                                    </div>
+                                    <span class="drink-price">₹60</span>
+                                </button>
 
-        <div class="payment-section">
-            <button onclick="payNow()">Pay now</button>
-        </div>
+                                <button type="button" class="drink-card" data-coffee="Cappuccino"
+                                    onclick="selectCoffee('Cappuccino',70)">
+                                    <div class="drink-icon-wrap">
+                                        <span class="drink-icon">☕</span>
+                                    </div>
+                                    <div class="drink-details">
+                                        <span class="drink-name">Cappuccino</span>
+                                        <span class="drink-desc">Velvety Foam</span>
+                                    </div>
+                                    <span class="drink-price">₹70</span>
+                                </button>
 
-        <div class="queue-section">
-            <button onclick="addToQueue()">Add To Queue</button>
-            <button onclick="processNextOrder()">Process Next Order</button>
-        </div>
-    </div>
-    
-    <div id="inventory-panel" class="inventory-panel" style="display: none;">
-        
-        <h3>Ingredients</h3>
-        <p id="water-stock">Water: 1200ml</p>
-        <p id="milk-stock">Milk: 700ml</p>
-        <p id="coffee-stock">Coffee: 300g</p>
+                                <button type="button" class="drink-card" data-coffee="Americano"
+                                    onclick="selectCoffee('Americano',50)">
+                                    <div class="drink-icon-wrap">
+                                        <span class="drink-icon">☕</span>
+                                    </div>
+                                    <div class="drink-details">
+                                        <span class="drink-name">Americano</span>
+                                        <span class="drink-desc">Deep &amp; Balanced</span>
+                                    </div>
+                                    <span class="drink-price">₹50</span>
+                                </button>
 
-        <h3>Sales History</h3>
-        <p id="sales-count">Total Sales: 0</p>
-        <p id="total-revenue">Total Revenue: ₹0</p>
-        <p id="last-sale">Last Sale: None</p>
+                                <button type="button" class="drink-card wide-drink" data-coffee="Mocha"
+                                    onclick="selectCoffee('Mocha',80)">
+                                    <div class="drink-icon-wrap">
+                                        <span class="drink-icon">🍫</span>
+                                    </div>
+                                    <div class="drink-details">
+                                        <span class="drink-name">Mocha Special</span>
+                                        <span class="drink-desc">Cocoa &amp; Steamed Milk</span>
+                                    </div>
+                                    <span class="drink-price">₹80</span>
+                                </button>
+                            </div>
+                        </div>
 
-        <h3>Search Sales</h3>
-        <input type="text" id="search-coffee" placeholder="Enter coffee name">
-        <button id="search-btn" onclick="searchSales()">Search Sales</button>
-        <p id="search-result">Search Result: None</p>
+                        <!-- Screen Bottom Status Bar / Carousel Dots -->
+                        <div class="screen-footer-bar">
+                            <span class="screen-dot active"></span>
+                            <span class="screen-dot"></span>
+                            <span class="screen-dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <h3>Popularity</h3>
-        <button onclick="showMostPopularCoffee()">Show Most Popular Coffee</button>
-        <p id="popular-result">Most Popular: None</p>
-        
-    </div>
+            <!-- Physical Interaction Strip: Contactless Payment & Instant Brew -->
+            <section class="payment-area">
+                <div class="payment-strip">
+                    <div class="tap-icon">
+                        <span class="nfc-wave wave-1"></span>
+                        <span class="nfc-wave wave-2"></span>
+                    </div>
+                    <div class="payment-text">
+                        <span class="payment-title">Contactless Pay / RFID</span>
+                        <small class="payment-sub">Tap card or scan QR to dispense</small>
+                    </div>
+                </div>
 
-    <div class="admin-section">
-        <button id="toggle-admin-btn" onclick="toggleAdminPanel()">Show Admin View</button>
-        <button onclick="refillInventory()">Admin Refill</button>
-        <button onclick="undoLastAction()">Undo Last Action</button>
-    </div>
+                <div class="payment-section">
+                    <button type="button" id="pay-now-btn" class="pay-btn" onclick="payNow()">
+                        <span class="btn-flare"></span>
+                        <span class="btn-text">PAY &amp; BREW NOW</span>
+                    </button>
+                </div>
+            </section>
 
-    <script src="script.js" ></script>
+            <!-- Commercial Dispense Chamber & Recessed Bay -->
+            <section class="dispense-area">
+                <div class="dispense-bay" id="dispense-bay">
+                    <div class="dispense-ambient-light"></div>
+                    
+                    <!-- Mechanical Internal Cup Staging Magazine (Commercial dispenser storage) -->
+                    <div class="cup-dispenser-column" title="Internal Automatic Cup Storage">
+                        <div class="cup-sleeve">
+                            <span class="cup-sleeve-rim s-3"></span>
+                            <span class="cup-sleeve-rim s-2"></span>
+                            <span class="cup-sleeve-rim s-1"></span>
+                        </div>
+                        <span class="cup-sleeve-tag">AUTO DISPENSE</span>
+                    </div>
+
+                    <!-- Dual Chrome Nozzle Assembly -->
+                    <div class="nozzle-head">
+                        <div class="nozzle-mount"></div>
+                        <div class="nozzle">
+                            <span class="nozzle-tip"></span>
+                        </div>
+                        <!-- Phase 4 coffee liquid stream -->
+                        <div class="stream-line" id="coffee-stream"></div>
+                    </div>
+
+                    <!-- Dispense Target Zone: Cup appears strictly on brew cycle -->
+                    <div class="cup-zone" id="cup-zone">
+                        <div class="cup cup-empty" id="dispense-cup">
+                            <div class="cup-rim"></div>
+                            <div class="cup-body">
+                                <div class="cup-coffee-fill" id="cup-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="drip-tray">
+                        <div class="drip-grid"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom Operational Controls (Queue & Batch Servicing) -->
+            <footer class="machine-bottom">
+                <div class="queue-section">
+                    <button type="button" id="add-to-queue-btn" class="btn-secondary" onclick="addToQueue()">+ Add To Queue</button>
+                    <button type="button" id="process-order-btn" class="btn-secondary" onclick="processNextOrder()">Process Next Order ➔</button>
+                </div>
+            </footer>
+        </section>
+
+        <!-- Slide-over Technician & Operational Drawer (One-Page) -->
+        <aside id="inventory-panel" class="inventory-panel admin-panel" style="display: none;">
+            <div class="admin-panel-header">
+                <div class="admin-badge">OPERATIONS CONSOLE</div>
+                <button type="button" class="admin-close-btn" onclick="toggleAdminPanel()" aria-label="Close technician panel">✕</button>
+            </div>
+
+            <div class="admin-section-card">
+                <h3>Ingredients Stock</h3>
+                <div class="stock-grid">
+                    <div class="stock-item">
+                        <span class="stock-name">Water</span>
+                        <p id="water-stock">Water: 1200ml</p>
+                    </div>
+                    <div class="stock-item">
+                        <span class="stock-name">Milk</span>
+                        <p id="milk-stock">Milk: 700ml</p>
+                    </div>
+                    <div class="stock-item">
+                        <span class="stock-name">Coffee</span>
+                        <p id="coffee-stock">Coffee: 300g</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-section-card">
+                <h3>Sales &amp; Revenue Telemetry</h3>
+                <div class="telemetry-grid">
+                    <p id="sales-count">Total Sales: 0</p>
+                    <p id="total-revenue">Total Revenue: ₹0</p>
+                    <p id="last-sale">Last Sale: None</p>
+                </div>
+            </div>
+
+            <div class="admin-section-card">
+                <h3>Search Sales Log</h3>
+                <div class="search-input-row">
+                    <input type="text" id="search-coffee" placeholder="Enter coffee name (e.g. Latte)">
+                    <button type="button" id="search-btn" onclick="searchSales()">Search</button>
+                </div>
+                <p id="search-result">Search Result: None</p>
+            </div>
+
+            <div class="admin-section-card">
+                <h3>Popularity Analytics</h3>
+                <button type="button" class="btn-analytics" onclick="showMostPopularCoffee()">Show Most Popular Coffee</button>
+                <p id="popular-result">Most Popular: None</p>
+            </div>
+
+            <div class="admin-actions">
+                <button type="button" id="refill-btn" class="btn-refill" onclick="refillInventory()">Refill All Ingredients</button>
+                <button type="button" id="undo-btn" class="btn-undo" onclick="undoLastAction()">Undo Last Action</button>
+            </div>
+        </aside>
+    </main>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
